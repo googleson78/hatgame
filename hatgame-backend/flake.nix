@@ -2,7 +2,10 @@
   description = "Hatgame backend";
 
   inputs.nixpkgs.url = github:NixOS/nixpkgs/nixos-21.11;
-  inputs.gomod2nix.url = github:tweag/gomod2nix;
+  inputs.gomod2nix = {
+    url = github:tweag/gomod2nix;
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
 
   outputs = { self, nixpkgs, gomod2nix }: {
     defaultPackage.x86_64-linux =
