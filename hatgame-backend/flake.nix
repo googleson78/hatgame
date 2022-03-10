@@ -6,7 +6,7 @@
 
   outputs = { self, nixpkgs, gomod2nix }: {
     defaultPackage.x86_64-linux =
-      let pkgs = import nixpkgs { system = "x86_64-linux"; overlays = [ gomod2nix.overlay ]; };
+      let pkgs = nixpkgs.legacyPackages.x86_64-linux.extend gomod2nix.overlay;
       in
       pkgs.buildGoApplication {
         pname = "hatgame";
