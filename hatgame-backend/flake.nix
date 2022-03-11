@@ -7,15 +7,28 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, gomod2nix }: {
-    defaultPackage.x86_64-linux =
-      let pkgs = nixpkgs.legacyPackages.x86_64-linux.extend gomod2nix.overlay;
-      in
-      pkgs.buildGoApplication {
-        pname = "hatgame";
-        version = "0.1";
-        src = ./.;
-        modules = ./gomod2nix.toml;
-      };
-  };
+  outputs = { self, nixpkgs, gomod2nix }:
+    let
+      pkgs = nixpkgs.legacyPackages.x86_64-linux.extend gomod2nix.overlay;
+      buildGoApplication =
+        pkgs.buildGoApplication {
+          pname = "hatgame";
+          version = "0.1";
+          src = ./.;
+          modules = ./gomod2nix.toml;
+        };
+
+    in
+    {
+      defaultPackage.x86_64-linux = buildGoApplication;
+      devShell.x86_64-linux = buildGoApplication //
+        pkgs.mkShell {
+          # probably needs go fmt etc...
+          buildInputs = [ pkgs.go pkgs.gomod2nix ];
+          shellHook = ''
+            eval "$configurePhase"
+          '';
+        };
+
+    };
 }
