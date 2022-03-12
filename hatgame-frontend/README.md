@@ -13,15 +13,15 @@ you need to make sure to copy `config_prod.js` and rename it to `config.js`.
 The server is expected to be running on `localhost:8080`.
 
 ```
-> elm make --output elm.js src/Main.elm
+> elm make --output Main.js src/Main.elm
 ```
 Open `index.html` in a browser.
 
 ### Deploy frontend
 
 ```
-> elm make --output elm.js src/Main.elm
-> scp index.html elm.js root@hat.adjoint.fun:/var/www/html
+> elm make --output Main.js src/Main.elm
+> scp index.html Main.js root@hat.adjoint.fun:/var/www/html
 > scp config_prod.js root@hat.adjoint.fun:/var/www/html/config.js
 > scp sass/output.css root@hat.adjoint.fun:/var/www/html/sass
 ```

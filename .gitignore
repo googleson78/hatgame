@@ -1,3 +1,5 @@
-hatgame-frontend/elm.js
-hatgame-frontend/elm-stuff
+Main.js
+elm-stuff/
+.elm/
+result
 hatgame-frontend/sass
