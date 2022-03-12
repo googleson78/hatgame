@@ -6,8 +6,12 @@
     url = github:tweag/gomod2nix;
     inputs.nixpkgs.follows = "nixpkgs";
   };
+  inputs.flake-compat = {
+    url = github:edolstra/flake-compat;
+    flake = false;
+  };
 
-  outputs = { self, nixpkgs, gomod2nix }:
+  outputs = { self, nixpkgs, gomod2nix, flake-compat }:
     let
       pkgs = nixpkgs.legacyPackages.x86_64-linux.extend gomod2nix.overlay;
       buildGoApplication =
